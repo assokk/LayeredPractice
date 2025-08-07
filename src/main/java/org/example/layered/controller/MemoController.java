@@ -3,6 +3,7 @@ package org.example.layered.controller;
 import org.example.layered.dto.MemoRequestDto;
 import org.example.layered.dto.MemoResponseDto;
 import org.example.layered.entity.Memo;
+import org.example.layered.service.MemoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,6 @@ import java.util.Map;
     @RequestMapping("/memos")
     public class MemoController {
 
-        // 데이터베이스(Repository)
-        private final Map<Long, Memo> memoList = new HashMap<>();
 
         // 1. 요청(Controller)
         @PostMapping
