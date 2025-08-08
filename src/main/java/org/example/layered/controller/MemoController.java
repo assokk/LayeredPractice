@@ -57,4 +57,12 @@ import java.util.Map;
             return new ResponseEntity<>(memoService.findMemoById(id), HttpStatus.OK);
         }
 
+        @PutMapping("/{id}")
+        public ResponseEntity<MemoResponseDto> updateMemo(
+                @PathVariable Long id,
+                @RequestBody MemoRequestDto dto) {
+
+            return new ResponseEntity<>(memoService.updateMemo(id, dto.getTitle(), dto.getContents()), HttpStatus.OK);
+        }
+
     }
