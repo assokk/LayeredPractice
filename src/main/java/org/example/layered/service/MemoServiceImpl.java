@@ -4,7 +4,9 @@ import org.example.layered.dto.MemoRequestDto;
 import org.example.layered.dto.MemoResponseDto;
 import org.example.layered.entity.Memo;
 import org.example.layered.repository.MemoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -46,5 +48,21 @@ public class MemoServiceImpl implements MemoService {
 
         // 또는 바로 반환
         // return memoRepository.findAllMemos();
+    }
+
+    @Override
+    public MemoResponseDto findMemoById(Long id) {
+
+        Memo memo = memoRepository.findMemoById(id);
+
+        // id에 해당하는 memo가 존재하지 않을 경우를 검증하고싶은데,
+        // MemoResponseDto 형태로 반환해야하기 때문에
+        // ResponseEntity 형태로 상태반환을 하는건 불가능.
+        // 따라서 throw를 활용하여 예외처리를 한다.
+        if (memo == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+        }
+
+        return new MemoResponseDto(memo);
     }
 }

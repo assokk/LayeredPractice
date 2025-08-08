@@ -50,4 +50,11 @@ import java.util.Map;
             return memoService.findAllMemos();
         }
 
+
+        @GetMapping("/{id}")
+        public ResponseEntity<MemoResponseDto> findMemoById(@PathVariable Long id) {
+
+            return new ResponseEntity<>(memoService.findMemoById(id), HttpStatus.OK);
+        }
+
     }
