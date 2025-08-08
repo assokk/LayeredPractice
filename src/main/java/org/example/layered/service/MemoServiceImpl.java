@@ -6,6 +6,8 @@ import org.example.layered.entity.Memo;
 import org.example.layered.repository.MemoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Annotation @Service는 @Component와 같다, Spring Bean으로 등록한다는 뜻.
  * Spring Bean으로 등록되면 다른 클래스에서 주입하여 사용할 수 있다.
@@ -33,5 +35,16 @@ public class MemoServiceImpl implements MemoService {
 
         // 생성되고 저장된 memo가 MemoResponseDto 형태로 반환
         return new MemoResponseDto(savedMemo);
+    }
+
+    @Override
+    public List<MemoResponseDto> findAllMemos() {
+
+        List<MemoResponseDto> allMemos = memoRepository.findAllMemos();
+
+        return allMemos;
+
+        // 또는 바로 반환
+        // return memoRepository.findAllMemos();
     }
 }

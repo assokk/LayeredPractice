@@ -1,11 +1,10 @@
 package org.example.layered.repository;
 
+import org.example.layered.dto.MemoResponseDto;
 import org.example.layered.entity.Memo;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Annotation @Repository는 @Component와 같다, Spring Bean으로 등록한다는 뜻.
@@ -30,5 +29,19 @@ public class MemoRepositoryImpl implements MemoRepository {
         memoList.put(memoId, memo);
 
         return memo;
+    }
+
+    @Override
+    public List<MemoResponseDto> findAllMemos() {
+
+        // List 초기화
+        List<MemoResponseDto> allMemos = new ArrayList<>();
+
+        for (Memo memo : memoList.values()) {
+            MemoResponseDto responseDto = new MemoResponseDto(memo);
+            allMemos.add(responseDto);
+        }
+
+        return allMemos;
     }
 }
