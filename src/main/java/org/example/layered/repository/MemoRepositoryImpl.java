@@ -3,6 +3,7 @@ package org.example.layered.repository;
 import org.example.layered.entity.Memo;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,4 +20,15 @@ public class MemoRepositoryImpl implements MemoRepository {
     // 데이터베이스(Repository)
     private final Map<Long, Memo> memoList = new HashMap<>();
 
+    @Override
+    public Memo saveMemo(Memo memo) {
+
+        // 전달받은 memo 객체에 Id를 세팅
+        Long memoId = memoList.isEmpty() ? 1 : Collections.max(memoList.keySet()) + 1;
+        memo.setId(memoId);
+
+        memoList.put(memoId, memo);
+
+        return memo;
+    }
 }
